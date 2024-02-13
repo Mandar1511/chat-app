@@ -9,5 +9,5 @@ clone the repository
  
 ## go to "client" folder
  type `npm install` \
- type `npm start`
-
+ type `npm start` \
+ react app will start on "http://localhost:3000"
