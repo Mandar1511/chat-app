@@ -1,7 +1,6 @@
 import { Box, Typography, Avatar, Paper } from "@mui/material";
 
 const Message = ({ message, socketId }) => {
-  console.log(message.sender, socketId);
   const isSender = message.sender === socketId;
   return (
     <Box
