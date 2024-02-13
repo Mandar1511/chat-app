@@ -1,35 +1,16 @@
-import "./App.css";
 import { useState, useEffect, useContext } from "react";
-import { Box, TextField, Button, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import Message from "./Message";
-import SendIcon from "@mui/icons-material/Send";
 import { SocketContext } from "./context/socket";
+import WriteBox from "./WriteBox";
 function App() {
   const [inChatRoom, setInChatRoom] = useState(false);
-  const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const socket = useContext(SocketContext);
 
   const handleStartChat = () => {
     socket.emit("join_chat");
     setInChatRoom(true);
-  };
-
-  const handleSendMsg = () => {
-    let dateTimeOptions = {
-      timeZone: "Asia/Kolkata",
-      hour12: true,
-      hour: "numeric",
-      minute: "numeric",
-    };
-    const msg = {
-      data: message,
-      sender: socket.id,
-      timeStamp: new Date().toLocaleTimeString("en-US", dateTimeOptions),
-    };
-    socket.emit("send_message", msg);
-    setMessageList((messageList) => [...messageList, msg]);
-    setMessage("");
   };
 
   useEffect(() => {
@@ -62,30 +43,10 @@ function App() {
             ))}
           </Box>
           <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={10}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Message..."
-                  variant="outlined"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <Button
-                  fullWidth
-                  size="large"
-                  color="primary"
-                  variant="contained"
-                  endIcon={<SendIcon />}
-                  onClick={handleSendMsg}
-                >
-                  Send
-                </Button>
-              </Grid>
-            </Grid>
+            <WriteBox
+              messageList={messageList}
+              setMessageList={setMessageList}
+            />
           </Box>
         </Box>
       )}

@@ -2,6 +2,7 @@ import { Box, Typography, Avatar, Paper } from "@mui/material";
 
 const Message = ({ message, socketId }) => {
   const isSender = message.sender === socketId;
+  const logo2 = message.sender[0];
   return (
     <Box
       sx={{
@@ -17,22 +18,24 @@ const Message = ({ message, socketId }) => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ bgcolor: isSender ? "primary.main" : "secondary.main" }}>
-          {isSender ? "B" : "U"}
-        </Avatar>
+        {!isSender && <Avatar sx={{ bgcolor: "#8E8FFA" }}>{logo2}</Avatar>}
         <Paper
           variant="outlined"
           sx={{
             p: 2,
             ml: isSender ? 1 : 0,
             mr: isSender ? 0 : 1,
-            backgroundColor: isSender ? "primary.light" : "secondary.light",
+            color: "white",
+            backgroundColor: isSender ? "#7752FE" : "#8E8FFA",
             borderRadius: isSender
-              ? "20px 20px 20px 5px"
-              : "20px 20px 5px 20px",
+              ? "15px 15px 15px 4px"
+              : "15px 15px 4px 15px",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Typography variant="body1">{message.data}</Typography>
+          <Typography variant="body2">{message.timeStamp}</Typography>
         </Paper>
       </Box>
     </Box>
