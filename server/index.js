@@ -4,7 +4,7 @@ const app = express();
 const { Server } = require("socket.io");
 const cors = require("cors");
 
-app.use(cors());
+app.use(cors()); // remote
 
 const server = http.createServer(app);
 
